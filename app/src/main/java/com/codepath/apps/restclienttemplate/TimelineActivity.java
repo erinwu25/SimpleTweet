@@ -1,13 +1,18 @@
 package com.codepath.apps.restclienttemplate;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +41,6 @@ public class TimelineActivity extends AppCompatActivity {
     List<Tweet> tweets;
     TweetsAdapter adapter;
     SwipeRefreshLayout swipeContainer;
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,6 +86,9 @@ public class TimelineActivity extends AppCompatActivity {
         client = TwitterApp.getRestClient(this);
         swipeContainer = findViewById(R.id.swipeContainer);
 
+        // set action bar title color
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"#ffffff\">SimpleTweet</font>"));
+
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -98,6 +105,9 @@ public class TimelineActivity extends AppCompatActivity {
 
         // find the recycler view
         rvTweets = findViewById(R.id.rvTweets);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvTweets.getContext(), LinearLayoutManager.VERTICAL);
+        rvTweets.addItemDecoration(dividerItemDecoration);
 
         // initialize a list of tweets and adapter
         tweets = new ArrayList<>();

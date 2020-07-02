@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,9 @@ public class ComposeActivity extends AppCompatActivity {
 
         etCompose = findViewById(R.id.etCompose);
         btnTweet = findViewById(R.id.btnTweet);
+
+        // set action bar title color
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"#ffffff\">SimpleTweet</font>"));
 
 
         // set click listener on btn
