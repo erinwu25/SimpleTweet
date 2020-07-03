@@ -1,6 +1,8 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+
+import org.parceler.Parcel;
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -67,7 +72,7 @@ public class TweetsAdapter extends  RecyclerView.Adapter<TweetsAdapter.ViewHolde
 
 
     // define a viewholder
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         ImageView ivProfileImage;
         TextView tvBody;
@@ -83,6 +88,9 @@ public class TweetsAdapter extends  RecyclerView.Adapter<TweetsAdapter.ViewHolde
             tvScreenName = itemView.findViewById(R.id.tvScreenName);
             tvDate = itemView.findViewById(R.id.tvDate);
             ivMedia = itemView.findViewById(R.id.ivMedia);
+
+            // itemView's onClickListener
+            itemView.setOnClickListener(this);
 
 
         }
@@ -100,14 +108,34 @@ public class TweetsAdapter extends  RecyclerView.Adapter<TweetsAdapter.ViewHolde
 
             if(tweet.mediaUrl == null) {
                 ivMedia.setVisibility(View.GONE);
-            } else {
+            }
+            else {
                 ivMedia.setVisibility(View.VISIBLE);
                 Glide.with(context)
                         .load(tweet.mediaUrl)
                         .into(ivMedia);
             }
+
+
         }
+
+
+        @Override
+        public void onClick(View view) {
+            // get item position
+            int position = getAdapterPosition();
+            Log.i("Detail", "clicked");
+            // ensure valid position
+            if (position != RecyclerView.NO_POSITION) {
+                Tweet tweet = tweets.get(position);  // get movie at position
+                Intent intent = new Intent(context, TweetDetailsActivity.class);  // create intent for new activity
+                intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));  // serialize tweet using parceler
+                context.startActivity(intent);  // show the activity
+
+
+            }
+
+        }
+
     }
-
-
 }

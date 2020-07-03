@@ -106,6 +106,7 @@ public class TimelineActivity extends AppCompatActivity {
         // find the recycler view
         rvTweets = findViewById(R.id.rvTweets);
 
+        // dividers between recycler view items
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvTweets.getContext(), LinearLayoutManager.VERTICAL);
         rvTweets.addItemDecoration(dividerItemDecoration);
 

@@ -7,5 +7,6 @@
     <string name="intent_host">cprest</string>
     <string name="tweet">Tweet</string>
     <string name="MAX_TWEET_LEN">140</string>
+    <string name="liked">Liked!</string>
 
 </resources>

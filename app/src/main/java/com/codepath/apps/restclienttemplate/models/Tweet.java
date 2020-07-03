@@ -20,6 +20,7 @@ public class Tweet {
     public String createdAt;
     public User user;
     public String mediaUrl;
+    public int tweetId;
 
     public Tweet() {} // empty constructor for parcel
 
@@ -28,19 +29,20 @@ public class Tweet {
         tweet.body = jsonObject.getString("text");
         tweet.createdAt = getRelativeTimeAgo(jsonObject.getString("created_at"));
         tweet.user = User.fromJson(jsonObject.getJSONObject("user"));
+        tweet.tweetId = jsonObject.getInt("id");
 
         // left off after getting the img url
         // only putting in image if one exists?
         // detail view?
         try {
-            // do everything you need to  in order to opull out the media url
+            // do everything you need to  in order to pull out the media url
             JSONObject entities = jsonObject.getJSONObject("entities");
             JSONArray mediaArray = entities.getJSONArray("media");
             JSONObject mediaHttpsObj = (JSONObject) mediaArray.get(0);
             String mediaHttpsUrl = mediaHttpsObj.getString("media_url_https");
             tweet.mediaUrl = mediaHttpsUrl;
         } catch(JSONException e) {
-            // if an error occurs, this code will be exeuted
+            // if an error occurs, this code will be executed
             Log.i("media", "no media for this tweet");
         }
 
@@ -72,5 +74,21 @@ public class Tweet {
         }
 
         return relativeDate;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public int getTweetId() {
+        return tweetId;
     }
 }
